@@ -1,0 +1,32 @@
+findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+
+
+
+
+produtoRepository.findById(produto.getId())
+                .map(existingProduto -> {
+                    existingProduto.setNomeProduto(produto.getNomeProduto());
+                    existingProduto.setMarca(produto.getMarca());
+                    existingProduto.setDataFabricacao(produto.getDataFabricacao());
+                    existingProduto.setDataValidade(produto.getDataValidade());
+                    existingProduto.setGenero(produto.getGenero());
+                    existingProduto.setLote(produto.getLote());
+                    return ResponseEntity.ok(produtoRepository.save(existingProduto));
+                }).orElse(ResponseEntity.notFound().build());
+
+
+                 produtoRepository.deleteById(id);
+
+
+
+                  return produtoRepository.findById(id)
+                                 .map(existingProduto -> {
+                                     existingProduto.setAtivo(false);
+                                     produtoRepository.save(existingProduto);
+                                     return ResponseEntity.noContent().build();
+                                 }).orElse(ResponseEntity.notFound().build());
+
+
+                                 ResponseEntity.noContent().build()

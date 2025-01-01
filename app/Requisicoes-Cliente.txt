@@ -1,0 +1,23 @@
+POST - http://localhost:8080/clientes/create
+body
+{
+    "id": 1,
+        "nome": "João da Silva",
+        "cpf": "123.456.789-00",
+        "genero": "MASCULINO",
+        "dataNascimento": "1990-01-01"
+}
+
+GET - http://localhost:8080/clientes/list
+
+PUT - http://localhost:8080/clientes/edit
+body
+{
+    "id": 1,
+    "nome": "João da Silva",
+    "cpf": "123.456.789-19",
+    "genero": "MASCULINO",
+    "dataNascimento": "1990-01-01"
+}
+
+DELETE - http://localhost:8080/clientes/delete/:id

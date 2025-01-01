@@ -1,0 +1,28 @@
+POST - http://localhost:8080/produtos/create
+
+body
+{
+    "nomeProduto": "Esponja",
+    "marca": "Marca Limpeza",
+    "dataFabricacao": "2023-08-01",
+    "dataValidade": "2024-08-01",
+    "genero": "LIMPEZA",
+    "lote": "L123458"
+}
+
+GET - http://localhost:8080/produtos/list
+
+PUT - http://localhost:8080/produtos/edit
+
+body
+{
+    "id": 5,
+    "nomeProduto": "Esponja",
+    "marca": "Marca Limpeza",
+    "dataFabricacao": "2023-08-01",
+    "dataValidade": "2024-08-01",
+    "genero": "LIMPEZA",
+    "lote": "L123459"
+}
+
+DELETE - http://localhost:8080/produtos/delete/:id

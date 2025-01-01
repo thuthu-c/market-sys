@@ -1,0 +1,121 @@
+ @GetMapping("/list")
+    public ResponseEntity<List<PedidoDTO>> getAll()
+
+    GET - URL: http://localhost:8080/pedidos/list
+
+ @GetMapping("/{id}/list")
+      public ResponseEntity<Optional<PedidoEntity>> getById(@PathVariable Long id)
+
+      GET - URL: http://localhost:8080/pedidos/:id/list
+
+  @PostMapping("/insert")
+     public ResponseEntity<?> postPedido(@Valid @RequestBody PedidoDTO pedidoDTO)
+
+     POST - URL: http://localhost:8080/pedidos/insert
+
+     BODY: {
+             "codigo": "PED12351",
+             "produtos": [
+               {
+                 "id": 3,
+                 "nomeProduto": "Feijão",
+                 "marca": "Marca Y",
+                 "dataFabricacao": "2023-02-10",
+                 "dataValidade": "2024-02-10",
+                 "genero": "ALIMENTICIO",
+                 "lote": "L456"
+               },
+               {
+                 "id": 1,
+                 "nomeProduto": "Sabão em Pó",
+                 "marca": "Marca Limpeza",
+                 "dataFabricacao": "2023-08-01",
+                 "dataValidade": "2024-08-01",
+                 "genero": "LIMPEZA",
+                 "lote": "L123456"
+               }
+             ],
+             "cliente": {
+               "id": 5,
+               "nome": "Maria Oliveira",
+               "cpf": "23456789012",
+               "genero": "FEMININO",
+               "dataNascimento": "1985-08-15",
+               "ativo": true
+             },
+             "ativo": true
+           }
+
+
+@PutMapping("/{id}/update")
+    public ResponseEntity<PedidoDTO> putPedido(@PathVariable Long id,@Valid @RequestBody PedidoDTO pedidoDTOAtualizado)
+
+    PUT - URL: http://localhost:8080/pedidos/:id/update
+
+    BODY:
+    {
+      "codigo": "PED12345",
+      "produtos": [
+        {
+          "id": 1,
+          "nomeProduto": "Shampoo",
+          "marca": "Marca X",
+          "dataFabricacao": "2023-01-15",
+          "dataValidade": "2025-01-15",
+          "genero": "HIGIENE_PESSOAL",
+          "lote": "L123"
+        },
+        {
+          "id": 9,
+          "nomeProduto": "Feijao",
+          "marca": "Marca Y",
+          "dataFabricacao": "2023-02-10",
+          "dataValidade": "2024-02-10",
+          "genero": "ALIMENTICIO",
+          "lote": "L456"
+        }
+      ],
+      "cliente": {
+        "id": 2,
+        "nome": "João Silva",
+        "cpf": "12345678901",
+        "genero": "MASCULINO",
+        "dataNascimento": "1990-05-20",
+        "ativo": true
+      },
+      "ativo": true
+    }
+
+
+@DeleteMapping("/{id}/delete")
+    public ResponseEntity<?> deletePedido(@PathVariable Long id)
+
+   DELETE - URL: http://localhost:8080/pedidos/:id/delete
+
+
+@PutMapping("/{id}/Softdelete")
+    public ResponseEntity<?> deleteLogic(@PathVariable Long id)
+
+    PUT - URL: http://localhost:8080/pedidos/:id/Softdelete
+
+@PutMapping("/{pedidoId}/add")
+    public ResponseEntity<?> adicionarProduto(@PathVariable Long pedidoId, @Valid @RequestBody ProdutoDTO produtoDTO)
+
+    PUT - URL: http://localhost:8080/pedidos/:pedidoId/add
+
+    BODY:
+    {
+            "id": 9,
+            "nomeProduto": "Feijao",
+            "marca": "Marca Y",
+            "dataFabricacao": "2023-02-10",
+            "dataValidade": "2024-02-10",
+            "genero": "ALIMENTICIO",
+            "lote": "L456"
+    }
+
+    @DeleteMapping("/{pedidoId}/remove/{produtoId}")
+        public ResponseEntity<?> removerProduto(@PathVariable Long pedidoId, @PathVariable Long produtoId)
+
+        DELETE - URL: http://localhost:8080/pedidos/:pedidoId/remove/:produtoId
+
