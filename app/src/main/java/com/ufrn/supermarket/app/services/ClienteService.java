@@ -56,6 +56,10 @@ public class ClienteService {
     }
 
     public ClienteDTO createCliente(ClienteDTO clienteDTO) {
+        if (clienteRepository.existsByCpf(clienteDTO.cpf())) {
+            System.out.println("É DENTRO!!");
+            throw new IllegalArgumentException("Já existe um cliente com o CPF: " + clienteDTO.cpf());
+        }
         ClienteEntity clienteEntity = convertToEntity(clienteDTO);
         ClienteEntity savedCliente = clienteRepository.save(clienteEntity);
         return convertToDto(savedCliente);

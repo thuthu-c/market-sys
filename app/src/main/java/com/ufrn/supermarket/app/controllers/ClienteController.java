@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,14 +46,28 @@ public class ClienteController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ClienteDTO> createCliente(@RequestBody ClienteDTO clienteDTO) {
+    public ResponseEntity<?> createCliente(@RequestBody ClienteDTO clienteDTO) {
         try {
+            // Cria o cliente utilizando o serviço
             ClienteDTO createdCliente = clienteService.createCliente(clienteDTO);
+
+            // Retorna o cliente criado com status 201 (CREATED)
             return ResponseEntity.status(HttpStatus.CREATED).body(createdCliente);
+
+        } catch (IllegalArgumentException e) {
+            // Retorna erro 400 (BAD REQUEST) para argumentos inválidos
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+
+        } catch (DataIntegrityViolationException e) {
+            // Trata violação de integridade (ex.: CPF duplicado)
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Já existe um cliente com o mesmo CPF.");
+
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            // Erro genérico do servidor
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao criar cliente.");
         }
     }
+
 
     @PutMapping("/edit")
     public ResponseEntity<ClienteDTO> editCliente(@RequestBody ClienteEntity cliente) {

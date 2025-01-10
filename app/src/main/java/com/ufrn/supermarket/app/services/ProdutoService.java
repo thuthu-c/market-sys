@@ -58,7 +58,9 @@ public class ProdutoService {
     }
 
 
-
+    public List<ProdutoEntity> findByIds(List<Long> ids) {
+        return produtoRepository.findAllById(ids);
+    }
 
 
     public List<ProdutoDTO> findAll() {

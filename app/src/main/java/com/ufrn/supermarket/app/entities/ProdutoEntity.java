@@ -1,11 +1,12 @@
 package com.ufrn.supermarket.app.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;  // Importando o JsonIgnore
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -39,6 +40,11 @@ public class ProdutoEntity {
 
     @Column(nullable = false)
     private String lote;
+
+//    @ManyToOne(fetch = FetchType.LAZY)  // Relacionamento com ClienteEntity
+//    @JoinColumn(name = "cliente_id", nullable = false)  // Definindo a chave estrangeira
+//    @JsonIgnore  // Evita o loop de chamada de cliente ao serializar produto
+//    private ClienteEntity cliente;  // Referência ao cliente que comprou o produto
 
     public enum Genero {
         COSMETICO,
