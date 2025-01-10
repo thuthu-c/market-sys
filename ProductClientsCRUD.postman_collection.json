@@ -1,0 +1,476 @@
+{
+	"info": {
+		"_postman_id": "09d14f41-5be0-4f1b-8a78-68dfaca42d83",
+		"name": "ProductClientsCRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38462931"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Client - Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"nome\": \"Maria Oliveira\",\n    \"cpf\": \"23456789012\",\n    \"genero\": \"FEMININO\",\n    \"dataNascimento\": \"1985-08-15\",\n    \"ativo\": true\n  }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clientes/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Client- Read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clientes/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Client - Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 3,\n    \"nome\": \"João da Silva\",\n    \"cpf\": \"123.456.789-18\",\n    \"genero\": \"MASCULINO\",\n    \"dataNascimento\": \"1990-01-01\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clientes/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cliente - Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clientes/delete/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clientes",
+								"delete",
+								":id"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "Product - Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n      \"id\": 3,\n      \"nomeProduto\": \"Feijao\",\n      \"marca\": \"Marca Y\",\n      \"dataFabricacao\": \"2023-02-10\",\n      \"dataValidade\": \"2024-02-10\",\n      \"genero\": \"ALIMENTICIO\",\n      \"lote\": \"L456\"\n    }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/produtos/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Read",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/produtos/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 8,\n    \"nomeProduto\": \"Esponja\",\n    \"marca\": \"Marca Limpeza\",\n    \"dataFabricacao\": \"2023-08-01\",\n    \"dataValidade\": \"2024-08-01\",\n    \"genero\": \"LIMPEZA\",\n    \"lote\": \"L123499\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/produtos/edit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product - Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/produtos/delete/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"produtos",
+								"delete",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "Pedidos - getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedidos/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pedidos - getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedidos/:id/list",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								":id",
+								"list"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pedidos - postPedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"codigo\": \"PED12346\",\n  \"produtos\": [\n    {\n      \"id\": 1,\n      \"nomeProduto\": \"Shampoo\",\n      \"marca\": \"Marca X\",\n      \"dataFabricacao\": \"2023-01-15\",\n      \"dataValidade\": \"2025-01-15\",\n      \"genero\": \"HIGIENE_PESSOAL\",\n      \"lote\": \"L123\"\n    }\n  ],\n  \"cliente\": {\n    \"id\": 2,\n        \"nome\": \"João da Silva\",\n        \"cpf\": \"123.456.789-00\",\n        \"genero\": \"MASCULINO\",\n        \"dataNascimento\": \"1990-01-01\",\n        \"ativo\": null\n  },\n  \"ativo\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pedidos/insert",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								"insert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pedido- putPedido",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"codigo\": \"PED12345\",\n  \"produtos\": [\n    {\n      \"id\": 1,\n      \"nomeProduto\": \"Shampoo\",\n      \"marca\": \"Marca X\",\n      \"dataFabricacao\": \"2023-01-15\",\n      \"dataValidade\": \"2025-01-15\",\n      \"genero\": \"HIGIENE_PESSOAL\",\n      \"lote\": \"L123\"\n    },\n    {\n      \"id\": 9,\n      \"nomeProduto\": \"Feijao\",\n      \"marca\": \"Marca Y\",\n      \"dataFabricacao\": \"2023-02-10\",\n      \"dataValidade\": \"2024-02-10\",\n      \"genero\": \"ALIMENTICIO\",\n      \"lote\": \"L456\"\n    }\n  ],\n  \"cliente\": {\n    \"id\": 2,\n    \"nome\": \"João Silva\",\n    \"cpf\": \"12345678901\",\n    \"genero\": \"MASCULINO\",\n    \"dataNascimento\": \"1990-05-20\",\n    \"ativo\": true\n  },\n  \"ativo\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pedidos/:id/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								":id",
+								"update"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pedido - deletePedido",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedidos/:id/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								":id",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pedido - deleteLogic",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedidos/:id/Softdelete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								":id",
+								"Softdelete"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "17"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pedido- adicionarProduto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \n        \"id\": 9,\n        \"nomeProduto\": \"Feijao\",\n        \"marca\": \"Marca Y\",\n        \"dataFabricacao\": \"2023-02-10\",\n        \"dataValidade\": \"2024-02-10\",\n        \"genero\": \"ALIMENTICIO\",\n        \"lote\": \"L456\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/pedidos/:pedidoId/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								":pedidoId",
+								"add"
+							],
+							"variable": [
+								{
+									"key": "pedidoId",
+									"value": "17"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pedido- removerProduto",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/pedidos/:pedidoId/remove/:produtoId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pedidos",
+								":pedidoId",
+								"remove",
+								":produtoId"
+							],
+							"variable": [
+								{
+									"key": "pedidoId",
+									"value": "17"
+								},
+								{
+									"key": "produtoId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
