@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;  // Lista de produtos
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -40,13 +40,24 @@ public class ClienteEntity {
     @Column(nullable = false)
     private Boolean ativo;
 
-//    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JsonIgnore  // Evita o loop de chamada de produtos ao serializar cliente
-//    private List<ProdutoEntity> produtos;  // Lista de produtos associados ao cliente
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore  // Evita loop na serialização
+    private List<ProdutoEntity> produtos;  // Lista de produtos associados ao cliente
 
     public enum Genero {
         MASCULINO,
         FEMININO,
         OUTRO
+    }
+
+
+    public ClienteEntity(Long id, String nome, String cpf, Genero genero, LocalDate dataNascimento, Boolean ativo) {
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.genero = genero;
+        this.dataNascimento = dataNascimento;
+        this.ativo = ativo;
+        this.produtos = null; // Evita erro caso a lista de produtos seja omitida
     }
 }

@@ -41,10 +41,10 @@ public class ProdutoEntity {
     @Column(nullable = false)
     private String lote;
 
-//    @ManyToOne(fetch = FetchType.LAZY)  // Relacionamento com ClienteEntity
-//    @JoinColumn(name = "cliente_id", nullable = false)  // Definindo a chave estrangeira
-//    @JsonIgnore  // Evita o loop de chamada de cliente ao serializar produto
-//    private ClienteEntity cliente;  // Referência ao cliente que comprou o produto
+    @ManyToOne(fetch = FetchType.LAZY)  // Relacionamento com ClienteEntity
+    @JoinColumn(name = "cliente_id", nullable = false)  // Chave estrangeira para cliente
+    @JsonIgnore  // Evita loop na serialização
+    private ClienteEntity cliente;  // Referência ao cliente que comprou o produto
 
     public enum Genero {
         COSMETICO,
@@ -52,5 +52,16 @@ public class ProdutoEntity {
         HIGIENE_PESSOAL,
         LIMPEZA,
         OUTRO
+    }
+
+    public ProdutoEntity(Long id, String nomeProduto, String marca, LocalDate dataFabricacao, LocalDate dataValidade, Genero genero, String lote) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.marca = marca;
+        this.dataFabricacao = dataFabricacao;
+        this.dataValidade = dataValidade;
+        this.genero = genero;
+        this.lote = lote;
+        this.cliente = null; // Evita erro caso o cliente seja omitido
     }
 }
