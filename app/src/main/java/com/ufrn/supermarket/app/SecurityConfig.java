@@ -13,6 +13,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import  org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 
 
@@ -26,15 +30,19 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private  UserDetailsService userDetailsService;
+
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()  // Permite acesso sem autenticação
-                .antMatchers(HttpMethod.GET, "/produtos", "/pedidos", "/clientes").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
+                .requestMatchers("/auth/**").permitAll()  // Permite acesso sem autenticação
+                .requestMatchers(HttpMethod.GET, "/produtos", "/pedidos", "/clientes").hasAnyRole("USER", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
                 .anyRequest().authenticated() // Exige autenticação para outras requisições
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
