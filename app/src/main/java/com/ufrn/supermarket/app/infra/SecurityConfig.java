@@ -36,7 +36,7 @@ public class SecurityConfig{
                         .requestMatchers(HttpMethod.POST, "/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

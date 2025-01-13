@@ -20,8 +20,8 @@ import java.util.List;
 @Table(name = "users")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +37,7 @@ public class User implements UserDetails {
     public User(String login, String password, RoleEnum role) {
     }
 
+    public User() {}
 
     @Override
     public boolean isAccountNonExpired() {
@@ -76,8 +77,4 @@ public class User implements UserDetails {
     public String getPassword() {
         return this.password;
     }
-
-
-
-
 }

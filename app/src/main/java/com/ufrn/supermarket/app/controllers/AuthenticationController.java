@@ -31,13 +31,18 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginDTO loginDTO){
 
-        System.out.println("O LOGIN É: " +loginDTO.login() + "A SENHA É : " + loginDTO.password());
-        var userPassword = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
-        var auth = this.authenticationManager.authenticate(userPassword);
+        try {
+            String encryptedPassword = new BCryptPasswordEncoder().encode(loginDTO.password());
+            System.out.println("O LOGIN É: " +loginDTO.login() + "A SENHA É : " + loginDTO.password() + " " + encryptedPassword);
+            var userPassword = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
+            var auth = this.authenticationManager.authenticate(userPassword);
 
-        var token = tokenService.generateToken((User)auth.getPrincipal());
+            var token = tokenService.generateToken((User)auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+            return ResponseEntity.ok(new LoginResponseDTO(token));
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage() + " " + e.getStackTrace());
+        }
     }
 
     @PostMapping("/registrar")
