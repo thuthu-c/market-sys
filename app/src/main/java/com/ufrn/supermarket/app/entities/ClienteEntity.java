@@ -1,6 +1,5 @@
 package com.ufrn.supermarket.app.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;  // Importando o JsonIgnore
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -40,9 +38,8 @@ public class ClienteEntity {
     @Column(nullable = false)
     private Boolean ativo;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore  // Evita loop na serialização
-    private List<ProdutoEntity> produtos;  // Lista de produtos associados ao cliente
+//    @JsonIgnore  // Evita loop na serialização
+//    private List<ProdutoEntity> produtos;  // Lista de produtos associados ao cliente
 
     public enum Genero {
         MASCULINO,
@@ -58,7 +55,7 @@ public class ClienteEntity {
         this.genero = genero;
         this.dataNascimento = dataNascimento;
         this.ativo = ativo;
-        this.produtos = null; // Evita erro caso a lista de produtos seja omitida
+//        this.produtos = null; // Evita erro caso a lista de produtos seja omitida
     }
 
     public ClienteEntity() {
@@ -112,11 +109,11 @@ public class ClienteEntity {
         this.ativo = ativo;
     }
 
-    public List<ProdutoEntity> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<ProdutoEntity> produtos) {
-        this.produtos = produtos;
-    }
+//    public List<ProdutoEntity> getProdutos() {
+//        return produtos;
+//    }
+//
+//    public void setProdutos(List<ProdutoEntity> produtos) {
+//        this.produtos = produtos;
+//    }
 }

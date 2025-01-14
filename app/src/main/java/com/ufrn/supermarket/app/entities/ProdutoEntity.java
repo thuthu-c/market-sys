@@ -1,6 +1,5 @@
 package com.ufrn.supermarket.app.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;  // Importando o JsonIgnore
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -41,10 +40,10 @@ public class ProdutoEntity {
     @Column(nullable = false)
     private String lote;
 
-    @ManyToOne(fetch = FetchType.LAZY)  // Relacionamento com ClienteEntity
-    @JoinColumn(name = "cliente_id", nullable = false)  // Chave estrangeira para cliente
-    @JsonIgnore  // Evita loop na serialização
-    private ClienteEntity cliente;  // Referência ao cliente que comprou o produto
+//    @ManyToOne(fetch = FetchType.LAZY)  // Relacionamento com ClienteEntity
+//    @JoinColumn(name = "cliente_id")  // Chave estrangeira para cliente
+//    @JsonIgnore  // Evita loop na serialização
+//    private ClienteEntity cliente;  // Referência ao cliente que comprou o produto
 
     public enum Genero {
         COSMETICO,
@@ -62,7 +61,11 @@ public class ProdutoEntity {
         this.dataValidade = dataValidade;
         this.genero = genero;
         this.lote = lote;
-        this.cliente = null; // Evita erro caso o cliente seja omitido
+//        this.cliente = null; // Evita erro caso o cliente seja omitido
+    }
+
+    public ProdutoEntity(){
+
     }
 
     public Long getId() {
@@ -121,11 +124,11 @@ public class ProdutoEntity {
         this.lote = lote;
     }
 
-    public ClienteEntity getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(ClienteEntity cliente) {
-        this.cliente = cliente;
-    }
+//    public ClienteEntity getCliente() {
+//        return cliente;
+//    }
+//
+//    public void setCliente(ClienteEntity cliente) {
+//        this.cliente = cliente;
+//    }
 }

@@ -4,6 +4,8 @@ import com.ufrn.supermarket.app.dtos.ProdutoDTO;
 import com.ufrn.supermarket.app.entities.ProdutoEntity;
 import com.ufrn.supermarket.app.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -46,12 +48,13 @@ public class ProdutoController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ProdutoDTO> createProduto(@RequestBody @Valid ProdutoDTO produtoDTO) {
+    public ResponseEntity<?> createProduto(@RequestBody @Valid ProdutoDTO produtoDTO) {
         try{
+            System.out.println(produtoDTO);
             ProdutoDTO produtoDto = produtoService.createProduto(produtoDTO).getBody();
             return ResponseEntity.ok().body(produtoDto);
         }catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("CADE????" + e.getMessage());
         }
     }
 

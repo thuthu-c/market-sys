@@ -34,9 +34,6 @@ public class ProdutoService {
         );
     }
 
-
-
-
     ProdutoEntity convertToEntity(ProdutoDTO produtoDTO) {
         ProdutoEntity.Genero genero;
         try {
@@ -57,11 +54,9 @@ public class ProdutoService {
         );
     }
 
-
     public List<ProdutoEntity> findByIds(List<Long> ids) {
         return produtoRepository.findAllById(ids);
     }
-
 
     public List<ProdutoDTO> findAll() {
         return produtoRepository.findAll()
@@ -69,7 +64,6 @@ public class ProdutoService {
                 .map(this::convertToDto)
                 .collect(Collectors.toList()).reversed();
     }
-
 
     public Optional<ProdutoDTO> findById(Long id) {
         return produtoRepository.findById(id)
