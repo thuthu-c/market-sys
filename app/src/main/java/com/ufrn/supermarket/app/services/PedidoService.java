@@ -21,7 +21,6 @@ public class PedidoService {
     private final ProdutoService produtoService;
     private final ClienteService clienteService;
 
-
     private PedidoDTO convertToDto(PedidoEntity pedidoEntity) {
         // Mapeando os produtos corretamente de ProdutoEntity para ProdutoDTO
         List<ProdutoDTO> produtosDTO = pedidoEntity.getProdutos().stream()
@@ -41,17 +40,11 @@ public class PedidoService {
         );
     }
 
-
-
-
     private List<ProdutoEntity> convertProdutoDTOsToEntities(List<ProdutoDTO> produtoDTOs) {
         return produtoDTOs.stream()
                 .map(produtoService::convertToEntity)
                 .collect(Collectors.toList());
     }
-
-
-
 
     private PedidoEntity convertToEntity(PedidoDTO pedidoDTO) {
         PedidoEntity pedidoEntity = new PedidoEntity();
@@ -73,8 +66,6 @@ public class PedidoService {
 
         return pedidoEntity;
     }
-
-
 
     public PedidoService(PedidoRepository pedidoRepository, ProdutoService produtoService, ClienteService clienteService) {
         this.pedidoRepository = pedidoRepository;
@@ -126,8 +117,6 @@ public class PedidoService {
         return convertToDto(savedPedido);
     }
 
-
-
     public PedidoDTO putPedido(Long id, PedidoDTO pedidoDTOAtualizado) {
         return pedidoRepository.findById(id)
                 .map(existingPedido -> {
@@ -170,7 +159,6 @@ public class PedidoService {
         return clienteEntity;
     }
 
-
     public void deletePedido(Long id) {
         if(pedidoRepository.existsById(id)){
             pedidoRepository.deleteById(id);
@@ -212,8 +200,6 @@ public class PedidoService {
         return convertToDto(pedidoAtualizado);
     }
 
-
-
     public PedidoDTO removerProduto(Long pedidoId, Long produtoId) {
 
         return pedidoRepository.findById(pedidoId)
@@ -236,8 +222,4 @@ public class PedidoService {
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Pedido com ID " + pedidoId + " não encontrado."));
     }
-
-
-
-
 }

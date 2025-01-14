@@ -1,7 +1,5 @@
 package com.ufrn.supermarket.app.dtos;
 
-import com.ufrn.supermarket.app.entities.ClienteEntity;
-
 import java.util.List;
 
 public record PedidoDTO(

@@ -1,8 +1,9 @@
 package com.ufrn.supermarket.app.entities;
 
-import com.ufrn.supermarket.app.dtos.ProdutoDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
