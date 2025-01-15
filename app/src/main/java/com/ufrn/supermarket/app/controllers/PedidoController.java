@@ -1,6 +1,5 @@
 package com.ufrn.supermarket.app.controllers;
 
-
 import com.ufrn.supermarket.app.dtos.PedidoDTO;
 import com.ufrn.supermarket.app.dtos.ProdutoDTO;
 import com.ufrn.supermarket.app.entities.PedidoEntity;
@@ -27,27 +26,27 @@ public class PedidoController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<PedidoDTO>> getAll(){
-        try{
+    public ResponseEntity<List<PedidoDTO>> getAll() {
+        try {
             List<PedidoDTO> pedidoDTOlist = pedidoService.getAll();
             return ResponseEntity.ok(pedidoDTOlist);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @GetMapping("/{id}/list")
-    public ResponseEntity<Optional<PedidoEntity>> getById(@PathVariable Long id){
+    public ResponseEntity<Optional<PedidoEntity>> getById(@PathVariable Long id) {
         try {
             Optional<PedidoEntity> pedidoDTO = pedidoService.getById(id);
             return ResponseEntity.ok(pedidoDTO);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
 
     @PostMapping("/insert")
-    public ResponseEntity<?> postPedido(@Valid @RequestBody PedidoDTO pedidoDTO){
+    public ResponseEntity<?> postPedido(@Valid @RequestBody PedidoDTO pedidoDTO) {
         try {
             PedidoDTO pedidoCreated = pedidoService.postPedido(pedidoDTO);
             return ResponseEntity.status(HttpStatus.CREATED).body(pedidoCreated);
@@ -57,7 +56,8 @@ public class PedidoController {
     }
 
     @PutMapping("/{id}/update")
-    public ResponseEntity<PedidoDTO> putPedido(@PathVariable Long id,@Valid @RequestBody PedidoDTO pedidoDTOAtualizado) {
+    public ResponseEntity<PedidoDTO> putPedido(@PathVariable Long id,
+            @Valid @RequestBody PedidoDTO pedidoDTOAtualizado) {
         try {
             PedidoDTO pedidoDTO = pedidoService.putPedido(id, pedidoDTOAtualizado);
             return ResponseEntity.ok(pedidoDTO);
@@ -68,13 +68,12 @@ public class PedidoController {
         }
     }
 
-
     @DeleteMapping("/{id}/delete")
-    public ResponseEntity<?> deletePedido(@PathVariable Long id){
-        try{
+    public ResponseEntity<?> deletePedido(@PathVariable Long id) {
+        try {
             pedidoService.deletePedido(id);
             return ResponseEntity.ok("Sucesso: Pedido excluído com sucesso!");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
@@ -89,7 +88,6 @@ public class PedidoController {
         }
     }
 
-
     @PutMapping("/{pedidoId}/add")
     public ResponseEntity<?> adicionarProduto(@PathVariable Long pedidoId, @Valid @RequestBody ProdutoDTO produtoDTO) {
         try {
@@ -102,7 +100,6 @@ public class PedidoController {
         }
     }
 
-
     @DeleteMapping("/{pedidoId}/remove/{produtoId}")
     public ResponseEntity<?> removerProduto(@PathVariable Long pedidoId, @PathVariable Long produtoId) {
         try {
@@ -114,7 +111,5 @@ public class PedidoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao remover o produto.");
         }
     }
-
-
 
 }

@@ -1,6 +1,5 @@
 package com.ufrn.supermarket.app.controllers;
 
-
 import com.ufrn.supermarket.app.dtos.LoginDTO;
 import com.ufrn.supermarket.app.dtos.LoginResponseDTO;
 import com.ufrn.supermarket.app.dtos.RegistrarDTO;
@@ -29,15 +28,16 @@ public class AuthenticationController {
     TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
 
         try {
             String encryptedPassword = new BCryptPasswordEncoder().encode(loginDTO.password());
-            System.out.println("O LOGIN É: " +loginDTO.login() + "A SENHA É : " + loginDTO.password() + " " + encryptedPassword);
+            System.out.println(
+                    "O LOGIN É: " + loginDTO.login() + "A SENHA É : " + loginDTO.password() + " " + encryptedPassword);
             var userPassword = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
             var auth = this.authenticationManager.authenticate(userPassword);
 
-            var token = tokenService.generateToken((User)auth.getPrincipal());
+            var token = tokenService.generateToken((User) auth.getPrincipal());
 
             return ResponseEntity.ok(new LoginResponseDTO(token));
         } catch (Exception e) {
@@ -46,14 +46,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity registra(@RequestBody RegistrarDTO registrarDTO){
-        if(this.repository.findByLogin(registrarDTO.login()) != null){
+    public ResponseEntity<?> registra(@RequestBody RegistrarDTO registrarDTO) {
+        if (this.repository.findByLogin(registrarDTO.login()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         String encriptedPassword = new BCryptPasswordEncoder().encode(registrarDTO.password());
-        User user = new User(registrarDTO.login(), encriptedPassword ,registrarDTO.role());
+        User user = new User(registrarDTO.login(), encriptedPassword, registrarDTO.role());
         this.repository.save(user);
         return ResponseEntity.ok().build();
     }
 }
-

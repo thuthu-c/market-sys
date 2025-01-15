@@ -27,8 +27,7 @@ public class ClienteService {
                 clienteEntity.getCpf(),
                 clienteEntity.getGenero(),
                 clienteEntity.getDataNascimento(),
-                clienteEntity.getAtivo()
-        );
+                clienteEntity.getAtivo());
     }
 
     // Método para converter ClienteDTO em ClienteEntity
@@ -40,8 +39,7 @@ public class ClienteService {
                 clienteDTO.cpf(),
                 clienteDTO.genero(),
                 clienteDTO.dataNascimento(),
-                true
-        );
+                true);
     }
 
     public List<ClienteDTO> findAll() {

@@ -24,7 +24,8 @@ public class PedidoService {
     private PedidoDTO convertToDto(PedidoEntity pedidoEntity) {
         // Mapeando os produtos corretamente de ProdutoEntity para ProdutoDTO
         List<ProdutoDTO> produtosDTO = pedidoEntity.getProdutos().stream()
-                .map(produtoEntity -> produtoService.convertToDto(produtoEntity)) // Convertendo ProdutoEntity para ProdutoDTO
+                .map(produtoEntity -> produtoService.convertToDto(produtoEntity)) // Convertendo ProdutoEntity para
+                                                                                  // ProdutoDTO
                 .collect(Collectors.toList());
 
         // Convertendo o cliente (ClienteEntity para ClienteDTO)
@@ -34,9 +35,9 @@ public class PedidoService {
         return new PedidoDTO(
                 pedidoEntity.getId(),
                 pedidoEntity.getCodigo(),
-                produtosDTO,  // Lista de ProdutoDTO
-                clienteDTO,   // ClienteDTO
-                pedidoEntity.isAtivo()  // Atributo 'ativo' de PedidoEntity
+                produtosDTO, // Lista de ProdutoDTO
+                clienteDTO, // ClienteDTO
+                pedidoEntity.isAtivo() // Atributo 'ativo' de PedidoEntity
         );
     }
 
@@ -49,16 +50,13 @@ public class PedidoService {
     private PedidoEntity convertToEntity(PedidoDTO pedidoDTO) {
         PedidoEntity pedidoEntity = new PedidoEntity();
 
-
         pedidoEntity.setCodigo(pedidoDTO.codigo());
         pedidoEntity.setAtivo(pedidoDTO.ativo());
-
 
         List<ProdutoEntity> produtos = pedidoDTO.produtos().stream()
                 .map(produtoService::convertToEntity)
                 .collect(Collectors.toList());
         pedidoEntity.setProdutos(produtos);
-
 
         ClienteEntity cliente = clienteService.findById(pedidoDTO.cliente().id())
                 .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado: " + pedidoDTO.cliente().id()));
@@ -67,7 +65,8 @@ public class PedidoService {
         return pedidoEntity;
     }
 
-    public PedidoService(PedidoRepository pedidoRepository, ProdutoService produtoService, ClienteService clienteService) {
+    public PedidoService(PedidoRepository pedidoRepository, ProdutoService produtoService,
+            ClienteService clienteService) {
         this.pedidoRepository = pedidoRepository;
         this.produtoService = produtoService;
         this.clienteService = clienteService;
@@ -125,13 +124,12 @@ public class PedidoService {
                         existingPedido.setCodigo(pedidoDTOAtualizado.codigo());
                     }
 
-
                     if (pedidoDTOAtualizado.produtos() != null) {
 
-                        List<ProdutoEntity> produtosAtualizados = convertProdutoDTOsToEntities(pedidoDTOAtualizado.produtos());
+                        List<ProdutoEntity> produtosAtualizados = convertProdutoDTOsToEntities(
+                                pedidoDTOAtualizado.produtos());
                         existingPedido.setProdutos(produtosAtualizados);
                     }
-
 
                     if (pedidoDTOAtualizado.cliente() != null) {
 
@@ -139,9 +137,7 @@ public class PedidoService {
                         existingPedido.setCliente(clienteAtualizado);
                     }
 
-
                     PedidoEntity pedidoAtualizado = pedidoRepository.save(existingPedido);
-
 
                     return convertToDto(pedidoAtualizado);
                 }).orElse(null);
@@ -160,7 +156,7 @@ public class PedidoService {
     }
 
     public void deletePedido(Long id) {
-        if(pedidoRepository.existsById(id)){
+        if (pedidoRepository.existsById(id)) {
             pedidoRepository.deleteById(id);
         }
     }
@@ -169,7 +165,6 @@ public class PedidoService {
         pedidoRepository.findById(id).ifPresent(existingPedido -> {
 
             existingPedido.setAtivo(false);
-
 
             pedidoRepository.save(existingPedido);
         });
@@ -180,10 +175,9 @@ public class PedidoService {
         PedidoEntity pedido = pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido com ID " + pedidoId + " não encontrado."));
 
-
         ProdutoDTO produto = produtoService.findById(produtoDTO.id())
-                .orElseThrow(() -> new EntityNotFoundException("Produto com ID " + produtoDTO.id() + " não encontrado."));
-
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Produto com ID " + produtoDTO.id() + " não encontrado."));
 
         if (pedido.getProdutos().contains(produto)) {
             throw new IllegalArgumentException("Produto já está no pedido.");
@@ -193,9 +187,7 @@ public class PedidoService {
 
         pedido.adicionarProduto(produtoEntity);
 
-
         PedidoEntity pedidoAtualizado = pedidoRepository.save(pedido);
-
 
         return convertToDto(pedidoAtualizado);
     }
@@ -209,14 +201,12 @@ public class PedidoService {
                             .stream()
                             .filter(produto -> produto.getId().equals(produtoId))
                             .findFirst()
-                            .orElseThrow(() -> new EntityNotFoundException("Produto com ID " + produtoId + " não encontrado no pedido."));
-
+                            .orElseThrow(() -> new EntityNotFoundException(
+                                    "Produto com ID " + produtoId + " não encontrado no pedido."));
 
                     existingPedido.getProdutos().remove(produtoARemover);
 
-
                     PedidoEntity pedidoAtualizado = pedidoRepository.save(existingPedido);
-
 
                     return convertToDto(pedidoAtualizado);
                 })

@@ -29,9 +29,8 @@ public class ProdutoService {
                 produtoEntity.getMarca(),
                 produtoEntity.getDataFabricacao(),
                 produtoEntity.getDataValidade(),
-                produtoEntity.getGenero().toString(),  // Supondo que Genero seja um Enum
-                produtoEntity.getLote()
-        );
+                produtoEntity.getGenero().toString(), // Supondo que Genero seja um Enum
+                produtoEntity.getLote());
     }
 
     ProdutoEntity convertToEntity(ProdutoDTO produtoDTO) {
@@ -39,8 +38,9 @@ public class ProdutoService {
         try {
             genero = ProdutoEntity.Genero.valueOf(produtoDTO.genero().toUpperCase());
         } catch (IllegalArgumentException e) {
-            // Trate a exceção, por exemplo, atribuindo um valor padrão ou lançando outra exceção
-            genero = ProdutoEntity.Genero.OUTRO;  // Valor padrão ou outro valor de fallback
+            // Trate a exceção, por exemplo, atribuindo um valor padrão ou lançando outra
+            // exceção
+            genero = ProdutoEntity.Genero.OUTRO; // Valor padrão ou outro valor de fallback
         }
 
         return new ProdutoEntity(
@@ -50,8 +50,7 @@ public class ProdutoService {
                 produtoDTO.dataFabricacao(),
                 produtoDTO.dataValidade(),
                 genero,
-                produtoDTO.lote()
-        );
+                produtoDTO.lote());
     }
 
     public List<ProdutoEntity> findByIds(List<Long> ids) {

@@ -20,13 +20,13 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @Autowired
-    public  ClienteController( ClienteService clienteService) {
+    public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
     }
 
     @GetMapping("/list")
-    public ResponseEntity<List<ClienteDTO>>  findAll() {
-        try{
+    public ResponseEntity<List<ClienteDTO>> findAll() {
+        try {
             List<ClienteDTO> clienteDTOList = clienteService.findAll();
             return new ResponseEntity<>(clienteDTOList, HttpStatus.OK);
 
@@ -38,13 +38,14 @@ public class ClienteController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<ClienteEntity>> findById(@PathVariable Long id) {
 
-        try{
+        try {
             Optional<ClienteEntity> clienteDTO = clienteService.findById(id);
             return new ResponseEntity<>(clienteDTO, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<?> createCliente(@RequestBody ClienteDTO clienteDTO) {
@@ -69,7 +70,6 @@ public class ClienteController {
         }
     }
 
-
     @PutMapping("/edit")
     public ResponseEntity<ClienteDTO> editCliente(@RequestBody ClienteEntity cliente) {
         try {
@@ -85,10 +85,10 @@ public class ClienteController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCliente(@PathVariable Long id) {
-        try{
+        try {
             clienteService.deleteCliente(id);
             return ResponseEntity.ok("Sucesso: Cliente excluído com sucesso!");
-        }catch (Exception ex){
+        } catch (Exception ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
     }
