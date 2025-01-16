@@ -12,8 +12,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "clientes")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class ClienteEntity {
 
     @Id

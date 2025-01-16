@@ -11,13 +11,13 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./app/target:/app/target
+      - ./app/src:/app/src
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/mydb
       SPRING_DATASOURCE_USERNAME: myuser
       SPRING_DATASOURCE_PASSWORD: mypassword
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
-    command: ["java", "-jar", "/app/app.jar"]
+    restart: always
 
   db:
     image: mysql:8.0

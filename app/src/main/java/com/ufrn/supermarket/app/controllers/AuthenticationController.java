@@ -27,13 +27,15 @@ public class AuthenticationController {
     @Autowired
     TokenService tokenService;
 
+    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginDTO loginDTO) {
 
         try {
-            String encryptedPassword = new BCryptPasswordEncoder().encode(loginDTO.password());
+            String encryptedPassword = encoder.encode(loginDTO.password());
             System.out.println(
-                    "O LOGIN É: " + loginDTO.login() + "A SENHA É : " + loginDTO.password() + " " + encryptedPassword);
+                    "O LOGIN É: " + loginDTO.login() + "A SENHA : " + loginDTO.password() + " " + encryptedPassword);
             var userPassword = new UsernamePasswordAuthenticationToken(loginDTO.login(), loginDTO.password());
             var auth = this.authenticationManager.authenticate(userPassword);
 
@@ -41,18 +43,18 @@ public class AuthenticationController {
 
             return ResponseEntity.ok(new LoginResponseDTO(token));
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage() + " " + e.getStackTrace());
+            return ResponseEntity.badRequest().build();
         }
     }
 
     @PostMapping("/registrar")
-    public ResponseEntity<?> registra(@RequestBody RegistrarDTO registrarDTO) {
+    public ResponseEntity<String> registra(@RequestBody RegistrarDTO registrarDTO) {
         if (this.repository.findByLogin(registrarDTO.login()) != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        String encriptedPassword = new BCryptPasswordEncoder().encode(registrarDTO.password());
+        String encriptedPassword = encoder.encode(registrarDTO.password());
         User user = new User(registrarDTO.login(), encriptedPassword, registrarDTO.role());
         this.repository.save(user);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("Usuário criado com sucesso!!!");
     }
 }

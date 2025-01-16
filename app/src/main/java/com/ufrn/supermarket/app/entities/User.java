@@ -31,6 +31,9 @@ public class User implements UserDetails {
     private RoleEnum role;
 
     public User(String login, String password, RoleEnum role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
     }
 
     public User() {}
